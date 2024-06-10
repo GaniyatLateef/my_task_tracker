@@ -1,0 +1,17 @@
+server.port: 8080
+
+spring:
+  application.name: my_task_tracker
+  profiles.active: prod
+
+  jpa:
+    show-sql: true
+    properties.hibernate.format_sql: true
+    hibernate:
+      ddl-auto: update
+
+app:
+  config:
+    token:
+      secretKey: Super~Jwt5489709876SecretKEY
+      expiryInMs: 3600000
