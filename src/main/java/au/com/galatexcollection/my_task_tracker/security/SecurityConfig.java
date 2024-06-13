@@ -61,7 +61,10 @@ public class SecurityConfig {
         return http.csrf(AbstractHttpConfigurer::disable)
             .authorizeHttpRequests(request -> request
                 .requestMatchers(HttpMethod.POST, ALLOWED_PATTERN).permitAll()
-                .requestMatchers(HttpMethod.GET, "/api/va/tasks").hasAuthority(RoleName.ROLE_ADMIN.name())
+                //.requestMatchers(HttpMethod.GET, "/api/v1/tasks").hasAuthority(RoleName.ROLE_ADMIN.name())
+                .requestMatchers(HttpMethod.PATCH, "/api/vi/users/toggle/**").hasAuthority(RoleName.ROLE_ADMIN.name())
+                .requestMatchers(HttpMethod.POST, "/api/vi/tasks").hasAuthority(RoleName.ROLE_ACCESS.name())
+                .requestMatchers(HttpMethod.PUT, "/api/vi/tasks/**").hasAuthority(RoleName.ROLE_ACCESS.name())
                     //.anyRequest().authenticated())
                 .anyRequest().hasAuthority(RoleName.ROLE_USER.name()))
             .authenticationManager(authenticationManager)

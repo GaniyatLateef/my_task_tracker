@@ -15,6 +15,9 @@ public class Task {
     @Column(name = "id")
     private Integer id;
 
+    @ManyToOne
+    private User user;
+
     @Column(name = "title")
     private String title;
 
@@ -45,6 +48,14 @@ public class Task {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getTitle() {

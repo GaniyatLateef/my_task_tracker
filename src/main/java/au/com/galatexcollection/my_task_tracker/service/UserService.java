@@ -45,4 +45,8 @@ public class UserService {
         user.setRoles(roles);
         return userRepository.save(user);
     }
+
+    public User updateUser(User user) {
+        return userRepository.save(user);
+    }
 }

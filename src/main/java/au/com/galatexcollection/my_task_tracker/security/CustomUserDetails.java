@@ -6,7 +6,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -32,6 +31,18 @@ public class CustomUserDetails implements UserDetails {
             .collect(Collectors.toSet());
 
         return  new CustomUserDetails(user.getId(), user.getUsername(), user.getPassword(), user.getName(), authorities);
+    }
+
+    public User getUserFromUserDetails() {
+        var user = new User();
+        user.setId(this.id);
+        user.setId(this.id);
+        user.setUsername(this.username);
+        user.setPassword(this.password);
+        user.setName(this.name);
+
+        return user;
+
     }
 
     public Integer getId() {

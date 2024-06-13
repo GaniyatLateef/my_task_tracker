@@ -2,6 +2,7 @@ package au.com.galatexcollection.my_task_tracker.service;
 
 
 import au.com.galatexcollection.my_task_tracker.entity.Task;
+import au.com.galatexcollection.my_task_tracker.entity.User;
 import au.com.galatexcollection.my_task_tracker.repository.TaskRepository;
 import org.springframework.stereotype.Service;
 
@@ -24,9 +25,19 @@ public class TaskService {
         return taskRepository.findById(taskId);
     }
 
-    public Task addTask(Task task) {
+    public Task addTask(Task task, User user) {
         task.setStatus(false);
+        task.setUser(user);
+
         return taskRepository.save(task);
+    }
+
+    public List<Task> getAllUserTasks(Integer userId) {
+        return taskRepository.findByUserId(userId);
+    }
+
+    public Optional<Task> getTaskByIdAndUserId(Integer taskId, Integer userId) {
+       return taskRepository.findByIdAndUserId(taskId, userId);
     }
 
     public Task updateTask(Task task) {
