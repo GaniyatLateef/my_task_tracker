@@ -36,7 +36,6 @@ public class CustomUserDetails implements UserDetails {
     public User getUserFromUserDetails() {
         var user = new User();
         user.setId(this.id);
-        user.setId(this.id);
         user.setUsername(this.username);
         user.setPassword(this.password);
         user.setName(this.name);
