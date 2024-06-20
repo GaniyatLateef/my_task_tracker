@@ -29,7 +29,7 @@ public class SecurityConfig {
 
     private static final Logger LOG = LoggerFactory.getLogger(SecurityConfig.class);
 
-    private static final String [] ALLOWED_PATTERN = {"/api/v1/users/auth/**"};
+    private static final String[] ALLOWED_PATTERN = {"/api/v1/users/auth/**"};
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -42,8 +42,7 @@ public class SecurityConfig {
     public AuthenticationManager authenticationManager(
         final PasswordEncoder passwordEncoder,              //autowire PasswordEncoder
         final CustomUserDetailsService userDetailsService   //autowire CustomUserDetailsService
-        )
-    {
+    ) {
         var authenticationProvider = new DaoAuthenticationProvider();
         authenticationProvider.setPasswordEncoder(passwordEncoder);
         authenticationProvider.setUserDetailsService(userDetailsService);
@@ -62,10 +61,11 @@ public class SecurityConfig {
             .authorizeHttpRequests(request -> request
                 .requestMatchers(HttpMethod.POST, ALLOWED_PATTERN).permitAll()
                 //.requestMatchers(HttpMethod.GET, "/api/v1/tasks").hasAuthority(RoleName.ROLE_ADMIN.name())
-                .requestMatchers(HttpMethod.PATCH, "/api/vi/users/toggle/**").hasAuthority(RoleName.ROLE_ADMIN.name())
-                .requestMatchers(HttpMethod.POST, "/api/vi/tasks").hasAuthority(RoleName.ROLE_ACCESS.name())
-                .requestMatchers(HttpMethod.PUT, "/api/vi/tasks/**").hasAuthority(RoleName.ROLE_ACCESS.name())
-                    //.anyRequest().authenticated())
+                .requestMatchers(HttpMethod.PATCH, "/api/v1/users/toggle/**").hasAuthority(RoleName.ROLE_ADMIN.name())
+                .requestMatchers(HttpMethod.GET, "/api/v1/users").hasAuthority(RoleName.ROLE_ADMIN.name())
+                .requestMatchers(HttpMethod.POST, "/api/v1/tasks").hasAuthority(RoleName.ROLE_ACCESS.name())
+                .requestMatchers(HttpMethod.PUT, "/api/v1/tasks/**").hasAuthority(RoleName.ROLE_ACCESS.name())
+                //.anyRequest().authenticated())
                 .anyRequest().hasAuthority(RoleName.ROLE_USER.name()))
             .authenticationManager(authenticationManager)
             .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

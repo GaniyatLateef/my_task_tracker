@@ -8,6 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -48,5 +49,12 @@ public class UserService {
 
     public User updateUser(User user) {
         return userRepository.save(user);
+    }
+
+    public List<User> getAllUsersExceptAdmin(Integer adminId) {
+        return userRepository.findAll()
+            .stream()
+            .filter(user -> !user.getId().equals(adminId))
+            .toList();
     }
 }

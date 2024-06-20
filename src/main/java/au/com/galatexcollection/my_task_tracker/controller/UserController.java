@@ -19,6 +19,8 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 import static java.lang.String.format;
 
 
@@ -131,5 +133,11 @@ public class UserController {
         return userService.getUserById(userDetails.getId())
             .map(ResponseEntity::ok)
             .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @GetMapping
+    //@PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    private ResponseEntity<List<User>> getAllUserProfiles(@AuthenticationPrincipal CustomUserDetails userDetails) {
+        return ResponseEntity.ok(userService.getAllUsersExceptAdmin(userDetails.getId()));
     }
 }

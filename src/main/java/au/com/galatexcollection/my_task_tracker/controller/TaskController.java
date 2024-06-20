@@ -144,7 +144,8 @@ public class TaskController {
             taskService.deleteTask(taskId);
         }else {
              taskService.getTaskByIdAndUserId(taskId, userDetails.getId())
-                 .ifPresent(task -> taskService.deleteTask(task.getId()));
+                 .ifPresent(task -> taskService.deleteTask(task.getId()
+                 ));
         }
             return ResponseEntity.noContent().build();
 
